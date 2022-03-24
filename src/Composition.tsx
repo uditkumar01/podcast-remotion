@@ -8,8 +8,7 @@ import {
 	useCurrentFrame,
 	useVideoConfig,
 } from 'remotion';
-import audioSource from './assets/audio.mp3';
-import coverImg from './assets/cover.jpg';
+import audioSource from './assets/video.mp4';
 import subtitlesSource from './assets/subtitles.srt';
 import { PaginatedSubtitles } from './Subtitles';
 
@@ -31,22 +30,32 @@ const AudioViz = () => {
 
 	// pick the low values because they look nicer than high values
 	// feel free to play around :)
-	const visualization = allVisualizationValues.slice(8, 30);
-
-	const mirrored = [...visualization.slice(1).reverse(), ...visualization];
+	const visualization = allVisualizationValues.slice(0, 36);
 
 	return (
-		<div className="flex flex-row h-16 items-center justify-center gap-1">
-			{mirrored.map((v) => {
-				return (
-					<div
-						className="w-1 bg-yellow-300 rounded"
-						style={{
-							height: `${500 * Math.sqrt(v)}%`,
-						}}
-					/>
-				);
-			})}
+		<div className="relative h-16 w-[calc(100vw-1000px)]  overflow-hidden">
+			<div className="left-0 bottom-0 absolute flex flex-row h-16 items-end justify-center gap-1 delay-400">
+				{[...visualization, ...visualization.slice(1).reverse()].map((v) => {
+					return (
+						<div
+							className="relative bg-red-300 rounded bg-color-animate"
+							style={{
+								height: `${300 * Math.sqrt(v)}%`,
+								width: '2px',
+							}}
+						>
+							<div
+								className="absolute top-0 -left-2 bg-red-900 rounded-full rounded-full !delay-800 bg-color-animate"
+								style={{ height: '6px', width: '6px' }}
+							/>
+							<div
+								className="absolute top-0 left-2 bg-red-900 rounded-full rounded-full !delay-800 bg-color-animate"
+								style={{ height: '6px', width: '6px' }}
+							/>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 };
@@ -55,7 +64,7 @@ export const AudiogramComposition = () => {
 	const { durationInFrames } = useVideoConfig();
 
 	// change this to adjust the part of the audio to use
-	const offset = 2000;
+	const offset = 0;
 
 	return (
 		<Sequence from={-offset}>
@@ -68,19 +77,18 @@ export const AudiogramComposition = () => {
 				}}
 			>
 				<div className="flex flex-row">
-					<Img className="rounded-lg" src={coverImg} />
+					<Img
+						className="rounded-lg"
+						src="https://raw.githubusercontent.com/uditkumar01/Milanam/main/public/images/logo.png?token=GHSAT0AAAAAABQJAVLAWNPBIAVBCBAH36LGYSFWMEA"
+					/>
 
 					<div className="ml-4 leading-tight font-extrabold text-gray-700">
-						#234 – Money, Kids, and Choosing Your Market with Justin Jackson of
-						Transistor.fm
+						<span className="text-blue-900">#milanam</span> - Create token gated
+						party rooms to play games, stream videos, collaborate and more.
 					</div>
 				</div>
 
-				<div className="mt-4">
-					<AudioViz />
-				</div>
-
-				<div className="mt-2 text-2xl font-semibold">
+				<div className="flex-1 mt-4 text-2xl font-semibold max-w-[calc(100vh-500px)] overflow-hidden">
 					<PaginatedSubtitles
 						src={subtitlesSource}
 						startFrame={offset}
@@ -116,6 +124,9 @@ export const AudiogramComposition = () => {
 							</>
 						)}
 					/>
+				</div>
+				<div className="mt-0">
+					<AudioViz />
 				</div>
 			</div>
 		</Sequence>

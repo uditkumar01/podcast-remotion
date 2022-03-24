@@ -8,7 +8,7 @@ export const PromoComposition = () => {
 	return (
 		<div className="w-full h-full bg-gray-700">
 			<div
-				className="absolute left-36 -top-20 shadow-lg overflow-hidden rounded-xl"
+				className="absolute z-50 left-36 -top-20 shadow-lg overflow-hidden rounded-xl"
 				style={{
 					width: 1080,
 					height: 1080,
@@ -17,9 +17,7 @@ export const PromoComposition = () => {
 					}deg)`,
 				}}
 			>
-				<div className="rounded-full">
-					<AudiogramComposition />;
-				</div>
+				<div className="rounded-full">{/* <AudiogramComposition />; */}</div>
 			</div>
 			<div className="transform-gpu font-extrabold text-gray-500 text-2xl filter drop-shadow-xl w-64 absolute top-1 left-3">
 				Free Template
