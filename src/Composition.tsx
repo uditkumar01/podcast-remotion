@@ -1,4 +1,4 @@
-import { AbsoluteFill, Series } from 'remotion';
+import { AbsoluteFill, Series, spring } from 'remotion';
 import { useAudioData, visualizeAudio } from '@remotion/media-utils';
 import {
 	Audio,
@@ -87,8 +87,31 @@ export const AudiogramComposition = () => {
 		interpolate(
 			f,
 			[0, offset / 8, offset / 4, offset / 2, offset],
-			[1, 1, 1, 0.5, 0]
+			[0.5, 1, 1, 0.5, 0]
 		);
+
+	const BASE_VAR = durationInFrames - offset;
+
+	const opacity2 = interpolate(
+		frame,
+		[
+			BASE_VAR,
+			BASE_VAR + offset / 8,
+			BASE_VAR + offset / 4,
+			BASE_VAR + offset / 2,
+			BASE_VAR + offset,
+		],
+		[0, 1, 1, 1, 0]
+	);
+
+	const springEffect = spring({
+		frame: frame - BASE_VAR,
+		fps: 30,
+		from: 4,
+		to: 1,
+	});
+
+	// console.log(springEffect);
 
 	return (
 		<>
@@ -154,8 +177,8 @@ export const AudiogramComposition = () => {
 						</h3>
 					</div>
 				</Series.Sequence>
-				<Series.Sequence durationInFrames={durationInFrames - offset}>
-					<Audio src={audioSource} volume={0.03} />
+				<Series.Sequence durationInFrames={durationInFrames - 2 * offset}>
+					<Audio src={audioSource} volume={0.02} />
 
 					<div
 						className="flex flex-col w-full h-full bg-red-800 text-white p-4 bg-white bg-color-animate"
@@ -215,6 +238,48 @@ export const AudiogramComposition = () => {
 						{/* <div className="mt-0">
 					<AudioViz />
 				</div> */}
+					</div>
+				</Series.Sequence>
+				<Series.Sequence durationInFrames={offset}>
+					<Audio
+						src={audioSource}
+						volume={(f) => {
+							return Math.abs(decreaseVolume(f));
+						}}
+					/>
+					<AbsoluteFill>
+						<Video
+							src={introSource}
+							// className="scale=1.5"
+							style={{
+								height: '100%',
+								transform: 'scale(1.5)',
+							}}
+						/>
+					</AbsoluteFill>
+
+					<div className="flex flex-col justify-center items-center relative h-full w-full">
+						<div className="flex flex-1 flex-col justify-center items-center relative h-full w-full">
+							<h1
+								className="text-8xl font-extrabold text-center text-white"
+								style={{
+									opacity: opacity2,
+									lineHeight: '9rem',
+									transform: `scale(${springEffect})`,
+								}}
+							>
+								THANK YOU
+							</h1>
+						</div>
+						<h3
+							className="m-7 text-4xl font-extrabold text-center text-red-300"
+							style={{
+								opacity: opacity2,
+								transform: `translateY(${-lift}px)`,
+							}}
+						>
+							Milanam
+						</h3>
 					</div>
 				</Series.Sequence>
 			</Series>

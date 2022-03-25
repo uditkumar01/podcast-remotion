@@ -4,8 +4,8 @@ import './fonts.css';
 import { PromoComposition } from './PromoComposition';
 import './style.css';
 
-const fps = 30;
-const durationInFrames = 210 * fps;
+export const fps = 30;
+const durationInFrames = 210 * fps + 300;
 const width = 2950;
 
 export const RemotionVideo: React.FC = () => {
