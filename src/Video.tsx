@@ -5,7 +5,8 @@ import { PromoComposition } from './PromoComposition';
 import './style.css';
 
 const fps = 30;
-const durationInFrames = 30 * fps;
+const durationInFrames = 210 * fps;
+const width = 2950;
 
 export const RemotionVideo: React.FC = () => {
 	return (
@@ -15,16 +16,8 @@ export const RemotionVideo: React.FC = () => {
 				component={AudiogramComposition}
 				durationInFrames={durationInFrames}
 				fps={fps}
-				width={1080}
-				height={1080}
-			/>
-			<Composition
-				id="Promo"
-				component={PromoComposition}
-				durationInFrames={durationInFrames}
-				fps={fps}
-				width={1280}
-				height={720}
+				width={width}
+				height={Math.round(width / 1.44)}
 			/>
 		</>
 	);

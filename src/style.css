@@ -9,3 +9,74 @@ html {
 body {
 	@apply antialiased;
 }
+
+.bg-color-animate {
+	background: linear-gradient(
+		182deg,
+		#ffac04,
+		#ffd804,
+		#ff8004,
+		#c2ff04,
+		#27ff04,
+		#04ffbf,
+		#04dcff,
+		#0499ff,
+		#3b70f3,
+		#8939f7,
+		#e539f7,
+		#f73994,
+		#f73959,
+		#f78e39
+	);
+	background-size: 2800% 2800%;
+
+	-webkit-animation: bg-color-animation 30s ease infinite;
+	-moz-animation: bg-color-animation 30s ease infinite;
+	-o-animation: bg-color-animation 30s ease infinite;
+	animation: bg-color-animation 30s ease infinite;
+}
+
+@-webkit-keyframes bg-color-animation {
+	0% {
+		background-position: 51% 0%;
+	}
+	50% {
+		background-position: 50% 100%;
+	}
+	100% {
+		background-position: 51% 0%;
+	}
+}
+@-moz-keyframes bg-color-animation {
+	0% {
+		background-position: 51% 0%;
+	}
+	50% {
+		background-position: 50% 100%;
+	}
+	100% {
+		background-position: 51% 0%;
+	}
+}
+@-o-keyframes bg-color-animation {
+	0% {
+		background-position: 51% 0%;
+	}
+	50% {
+		background-position: 50% 100%;
+	}
+	100% {
+		background-position: 51% 0%;
+	}
+}
+@keyframes bg-color-animation {
+	0% {
+		background-position: 51% 0%;
+	}
+	50% {
+		background-position: 50% 100%;
+	}
+	100% {
+		background-position: 51% 0%;
+	}
+}

@@ -1,14 +1,14 @@
-import parseSRT, {SubtitleItem} from 'parse-srt';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {useCurrentFrame, useVideoConfig, VideoConfig} from 'remotion';
+import parseSRT, { SubtitleItem } from 'parse-srt';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useCurrentFrame, useVideoConfig, VideoConfig } from 'remotion';
 
 const useWindowedFrameSubs = (
 	src: string,
-	options: {windowStart?: number; windowEnd?: number} = {}
+	options: { windowStart?: number; windowEnd?: number } = {}
 ) => {
-	const {windowStart = -Infinity, windowEnd = Infinity} = options;
+	const { windowStart = -Infinity, windowEnd = Infinity } = options;
 	const config = useVideoConfig();
-	const {fps} = config;
+	const { fps } = config;
 
 	return useMemo(() => {
 		const subsWithSeconds = parseSRT(src);
@@ -103,10 +103,10 @@ export const PaginatedSubtitles: React.FC<{
 		const lineOffsets = Array.from(pageElement.childNodes).reduce<
 			PaginationLine[]
 		>((acc, item) => {
-			const {offsetTop, id} = item as HTMLElement;
+			const { offsetTop, id } = item as HTMLElement;
 			const lastOffsetTop = acc[acc.length - 1]?.offsetTop;
 			if (lastOffsetTop === offsetTop) return acc;
-			return [...acc, {index: Number(id), offsetTop}];
+			return [...acc, { index: Number(id), offsetTop }];
 		}, []);
 		setLines(lineOffsets);
 	}, [frame]);
@@ -147,28 +147,9 @@ export const PaginatedSubtitles: React.FC<{
 	// const startLine = linesPerPage * Math.floor(currentLineIndex / linesPerPage);
 
 	return (
-		<div style={{position: 'relative'}}>
+		<div className="bg-black relative text-center w-full h-full flex justify-center items-center">
+			<div>{currentSubtitleItem?.text}</div>
 			{/* <div>
-				 {JSON.stringify({startLine, linesPerPage})}
-				 <br />
-				---
-				<br />
-				{JSON.stringify(currentSubtitleItem)}
-				<br />
-				---
-				<br />
-				{JSON.stringify(lines)}
-				<br />
-				---
-				<br />
-				{lineSubs.map((l) => (
-					<>
-						<br />
-						{JSON.stringify(l.map((i) => i.text))}
-					</>
-				))}
-			</div> */}
-			<div>
 				{lineSubs
 					.slice(startLine, startLine + linesPerPage)
 					.reduce((subs, item) => [...subs, ...item], [])
@@ -192,7 +173,7 @@ export const PaginatedSubtitles: React.FC<{
 						{renderSubtitleItem(item, frame, config)}
 					</span>
 				))}
-			</div>
+			</div> */}
 		</div>
 	);
 };
